@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 
 import localFont from "next/font/local";
 
+import { ThemeProvider } from "next-themes";
+
 import "./globals.css";
 import { Geist } from "next/font/google";
 import { cn } from "@/lib/utils";
@@ -20,11 +22,21 @@ const vazirFont = localFont({
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
+      suppressHydrationWarning
       lang="en"
       dir="ltr"
       className={cn("antialiased", "m-2", "font-sans", geist.variable)}
     >
-      <body className={`${vazirFont.className}`}>{children}</body>
+      <body className={`${vazirFont.className} overflow-x-hidden`}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+        </ThemeProvider>
+      </body>
     </html>
   );
 }

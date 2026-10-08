@@ -3,6 +3,8 @@ import { ShoppingCart, UserIcon } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 
+import ThemeToggle from "./themeToggle";
+
 function Header() {
   return (
     <header className="w-full border-b">
@@ -15,6 +17,8 @@ function Header() {
         </div>
 
         <div className="space-x-2">
+          <ThemeToggle />
+
           <Button nativeButton={false} render={<Link href="/cart" />}>
             <ShoppingCart /> Cart
           </Button>
