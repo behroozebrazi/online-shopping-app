@@ -1,4 +1,4 @@
-import Header from "@/components/ui/shared/header";
+import Header from "@/components/shared/header";
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
