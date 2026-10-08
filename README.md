@@ -1,9 +1,12 @@
+// Next Project Libraries ==>>
 https://nextjs.org/
 npx create-next-app@latest online-shopping-app
 
+// Fonts ==>>
 https://rastikerdar.github.io/vazirmatn/
 Vazirmatn[wght].woff2
 
+// Components ==>>
 https://tailwindcss.com/
 https://ui.shadcn.com/
 https://ui.shadcn.com/docs/components
