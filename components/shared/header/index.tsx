@@ -15,11 +15,11 @@ function Header() {
         </div>
 
         <div className="space-x-2">
-          <Button render={<Link href="/cart" />}>
+          <Button nativeButton={false} render={<Link href="/cart" />}>
             <ShoppingCart /> Cart
           </Button>
 
-          <Button render={<Link href="/sign-in" />}>
+          <Button nativeButton={false} render={<Link href="/sign-in" />}>
             <UserIcon /> Account
           </Button>
         </div>
