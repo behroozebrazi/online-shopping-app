@@ -17,3 +17,7 @@ Button: npx shadcn@latest add button
 https://lucide.dev/
 https://lucide.dev/guide/react/
 npm install lucide-react
+
+// Light or Dark Mode
+https://www.npmjs.com/package/next-themes
+npm i next-themes

@@ -1,5 +1,12 @@
+import "server-only";
+
+async function getCurrentYear() {
+  "use cache";
+  return new Date().getFullYear();
+}
+
 function Footer() {
-  const currentYear = new Date().getFullYear();
+  const currentYear = getCurrentYear();
 
   return (
     <footer className="border-t">

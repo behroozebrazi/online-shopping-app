@@ -21,6 +21,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
+      dir="ltr"
       className={cn("antialiased", "m-2", "font-sans", geist.variable)}
     >
       <body className={`${vazirFont.className}`}>{children}</body>
