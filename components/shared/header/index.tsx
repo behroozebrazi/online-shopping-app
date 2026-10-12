@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ShoppingCart, UserIcon } from "lucide-react";
+import { ShoppingCart, UserIcon, GlobeCheck } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 
@@ -10,8 +10,10 @@ function Header() {
     <header className="w-full border-b">
       <div className="flex flex-1 justify-between items-center max-w-7xl w-full py-5 px-10 mx-auto">
         <div className="flex justify-start items-center">
-          <Link href="/" className="flex justify-start items-center">
-            <span>Logo</span>
+          <Link href="/" className="flex justify-start items-center gap-3">
+            <span>
+              <GlobeCheck />
+            </span>
             <span className="block font-bold text-2xl mr-3">Store</span>
           </Link>
         </div>

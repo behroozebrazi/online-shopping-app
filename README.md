@@ -21,6 +21,6 @@ https://lucide.dev/
 https://lucide.dev/guide/react/
 npm install lucide-react
 
-// Light or Dark Mode
+// Light / Dark / System Modes
 https://www.npmjs.com/package/next-themes
-npm i next-themes
+npm install next-themes
