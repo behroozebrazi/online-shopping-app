@@ -1,11 +1,15 @@
-import { Button } from "@/components/ui/button";
+import data from "@/data/products";
+
+import ProductList from "@/components/shared/product/productList";
 
 function HomePage() {
+  const { products } = data;
+
   return (
     <div>
       <main>
         <div>Home Page</div>
-        <Button>Button</Button>
+        <ProductList data={products} title="Products"></ProductList>
       </main>
     </div>
   );
