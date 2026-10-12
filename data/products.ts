@@ -20,7 +20,7 @@ const data = {
       image: "/images/apple-watch-series-10.jpg",
       price: 399,
       brand: "Apple",
-      stock: 30,
+      stock: 0,
     },
     {
       name: "The North Face Borealis Backpack",

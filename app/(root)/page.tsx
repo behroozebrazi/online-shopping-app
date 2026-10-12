@@ -9,7 +9,7 @@ function HomePage() {
     <div>
       <main>
         <div>Home Page</div>
-        <ProductList data={products} title="Products"></ProductList>
+        <ProductList data={products} title="Products" limit={4}></ProductList>
       </main>
     </div>
   );
