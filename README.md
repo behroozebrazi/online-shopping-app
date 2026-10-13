@@ -17,6 +17,8 @@ https://ui.shadcn.com/docs/components/base/dropdown-menu -> Dropdown Menu
 npx shadcn@latest add dropdown-menu
 https://ui.shadcn.com/docs/components/base/card -> Card
 npx shadcn@latest add card
+https://ui.shadcn.com/docs/components/base/badge
+npx shadcn@latest add badge
 
 // Icons ==>>
 https://lucide.dev/
