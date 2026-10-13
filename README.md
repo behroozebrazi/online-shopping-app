@@ -43,3 +43,13 @@ https://www.prisma.io/docs/v7/prisma-orm/quickstart/sqlite
 3. Generate the Prisma Client API after any changes in /prisma/schema.prisma
    . It generates new API's Client to connect to the database (SQLite)
    npx prisma generate
+4. Instantiate Prisma Client
+   . Pass an instance of the Prisma ORM driver adapter to the PrismaClient constructor
+   /lib/prisma.ts
+   import "dotenv/config";
+   import { PrismaBetterSqlite3 } from "@prisma/adapter-better-sqlite3";
+   import { PrismaClient } from "../generated/prisma/client";
+   const connectionString = `${process.env.DATABASE_URL}`;
+   const adapter = new PrismaBetterSqlite3({ url: connectionString });
+   const prisma = new PrismaClient({ adapter });
+   export { prisma };
