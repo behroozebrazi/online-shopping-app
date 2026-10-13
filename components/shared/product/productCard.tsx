@@ -3,7 +3,9 @@ import Image from "next/image";
 
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 
-function ProductCard({ product }: { product: any }) {
+import { Product } from "@/types";
+
+function ProductCard({ product }: { product: Product }) {
   return (
     <>
       <Card className="w-full max-w-sm">

@@ -1,18 +1,20 @@
 import ProductCard from "./productCard";
 
+import { Product } from "@/types";
+
 function ProductList({
   data,
   title,
   limit,
 }: {
-  data: any;
+  data: Product[];
   title?: string;
   limit?: number;
 }) {
   const limitedProducts = limit ? data.slice(0, limit) : data;
   const products =
     data?.length > 0 ? (
-      limitedProducts.map((item: any, index: number) => {
+      limitedProducts.map((item: Product, index: number) => {
         return <ProductCard key={index} product={item} />;
         // return <div key={index}>{item.name}</div>;
       })

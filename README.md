@@ -65,3 +65,7 @@ https://www.prisma.io/docs/v7/prisma-orm/quickstart/sqlite
 .. form inputs & API and backend validation
 https://zod.dev/
 npm install zod
+. ./lib/validators.ts
+. ./types/index.ts
+https://zod.dev/basics
+https://zod.dev/api
