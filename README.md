@@ -55,8 +55,8 @@ https://www.prisma.io/docs/v7/prisma-orm/quickstart/sqlite
    const adapter = new PrismaBetterSqlite3({ url: connectionString });
    const prisma = new PrismaClient({ adapter });
    export { prisma };
-5. Seed the database from a local file such as ./data/products.ts
-   npx tsx ./data/seedProduct.ts
+5. Seed the database from a local file such as ./data/products.ts and ./data/users.ts
+   . npx tsx ./data/seed.ts
 
 // Actions ==> work with database
 . actions functions run on server side -> "use server"
@@ -80,3 +80,9 @@ https://authjs.dev/getting-started/adapters/prisma
 . Naming Conventions -> schema.prisma --> ./prisma/schema.prisma
 npx prisma generate
 npx prisma migrate dev --name add_user_based_tables
+
+// bcrypt ==>
+https://www.npmjs.com/package/bcryptjs
+
+1. npm install bcryptjs
+2. npm install --save-dev @types/bcryptjs

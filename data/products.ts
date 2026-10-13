@@ -1,4 +1,4 @@
-const data = {
+const productsData = {
   products: [
     {
       name: "Sony WH-1000XM5 Wireless Headphones",
@@ -135,4 +135,4 @@ const data = {
   ],
 };
 
-export default data;
+export default productsData;
