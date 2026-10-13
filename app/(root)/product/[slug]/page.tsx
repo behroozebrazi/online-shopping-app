@@ -56,7 +56,7 @@ async function ProductPage(props: { params: Promise<{ slug: string }> }) {
 
                   <div className="flex justify-between mb-2">
                     <div>State</div>
-                    {product.price > 0 ? (
+                    {product.stock > 0 ? (
                       <Badge variant="outline">Exist</Badge>
                     ) : (
                       <Badge variant="destructive">Not exist</Badge>

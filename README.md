@@ -71,3 +71,12 @@ npm install zod
 . ./types/index.ts
 https://zod.dev/basics
 https://zod.dev/api
+
+// Authentication for the Web ==> Auth.js and add Modals
+https://authjs.dev/
+https://authjs.dev/getting-started
+https://authjs.dev/getting-started/installation
+https://authjs.dev/getting-started/adapters/prisma
+. Naming Conventions -> schema.prisma --> ./prisma/schema.prisma
+npx prisma generate
+npx prisma migrate dev --name add_user_based_tables
