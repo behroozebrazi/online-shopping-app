@@ -59,3 +59,9 @@ https://www.prisma.io/docs/v7/prisma-orm/quickstart/sqlite
 // Actions ==> work with database
 . actions functions run on server side -> "use server"
 . ./lib/actions/product.actions.ts
+
+// Zod ==>
+. TypeScript-first schema validation with static type inference. Define modals & Define data structure
+.. form inputs & API and backend validation
+https://zod.dev/
+npm install zod
