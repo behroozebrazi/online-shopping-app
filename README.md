@@ -53,3 +53,9 @@ https://www.prisma.io/docs/v7/prisma-orm/quickstart/sqlite
    const adapter = new PrismaBetterSqlite3({ url: connectionString });
    const prisma = new PrismaClient({ adapter });
    export { prisma };
+5. Seed the database from a local file such as ./data/products.ts
+   npx tsx ./data/seedProduct.ts
+
+// Actions ==> work with database
+. actions functions run on server side -> "use server"
+. ./lib/actions/product.actions.ts

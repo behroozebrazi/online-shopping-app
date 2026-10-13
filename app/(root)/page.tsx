@@ -1,9 +1,11 @@
-import data from "@/data/products";
-
 import ProductList from "@/components/shared/product/productList";
 
-function HomePage() {
-  const { products } = data;
+// import data from "@/data/products";
+import { getLatestProducts } from "@/lib/actions/product.actions";
+
+async function HomePage() {
+  // const { products } = data;
+  const products = await getLatestProducts();
 
   return (
     <div>
