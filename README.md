@@ -72,6 +72,11 @@ npm install zod
 https://zod.dev/basics
 https://zod.dev/api
 
+// bcrypt ==>
+https://www.npmjs.com/package/bcryptjs
+npm install bcryptjs
+npm install --save-dev @types/bcryptjs
+
 // Authentication for the Web ==> Auth.js and add Modals
 https://authjs.dev/
 https://authjs.dev/getting-started
@@ -81,8 +86,18 @@ https://authjs.dev/getting-started/adapters/prisma
 npx prisma generate
 npx prisma migrate dev --name add_user_based_tables
 
-// bcrypt ==>
-https://www.npmjs.com/package/bcryptjs
+// Authentication for Next.js
+https://authjs.dev/getting-started/installation?framework=Next.js
 
-1. npm install bcryptjs
-2. npm install --save-dev @types/bcryptjs
+1. npm install next-auth@beta
+   npm install next-auth@beta --legacy-peer-deps
+2. Adaptor Prisma for Authjs:
+   npm install @auth/prisma-adapter
+3. Generate a key and add 3 lines to .env file:
+   openssl rand -base64 32
+   Modify file .env with:
+   NEXTAUTH_SECRET="EK+db8siA22aCf07tMfe4WpXi4YwdNVM2fPqH3ZBWMA="
+   NEXTAUTH_URL=http://localhost:3000
+   NEXTAUTH_URL_INTERNAL=http://localhost:3000
+4. Config authentication in Next.js:
+   Create auth.ts in root
