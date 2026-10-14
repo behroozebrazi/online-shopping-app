@@ -3,7 +3,9 @@ import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import type { NextAuthConfig } from "next-auth";
 
+// Adaptor
 import { PrismaAdapter } from "@auth/prisma-adapter";
+// Prisma Client
 import { prisma } from "./lib/prisma";
 
 import { compareSync } from "bcryptjs";
@@ -11,8 +13,8 @@ import { compareSync } from "bcryptjs";
 // Config Next Auth
 export const config = {
   pages: {
-    signIn: "/sign-in",
-    error: "/sign-in",
+    signIn: "/sign-in", // url
+    error: "/sign-in", // url
   },
 
   session: {
@@ -25,15 +27,18 @@ export const config = {
 
   providers: [
     CredentialsProvider({
-      // login by email and password
+      // login method: login by email and password
       credentials: { email: { type: "email" }, password: { type: "password" } },
-      async authorize(credentials) {
-        if (credentials === null) return;
 
+      async authorize(credentials) {
+        if (credentials === null) return null;
+
+        // fetch the user info by user's email
         const user = await prisma.user.findFirst({
           where: { email: credentials.email as string },
         });
 
+        // compare the given user's password with database
         if (user && user.password) {
           const isMatch = compareSync(
             credentials.password as string,
@@ -50,7 +55,7 @@ export const config = {
           }
         }
 
-        return;
+        return null;
       },
     }),
   ],
@@ -58,9 +63,7 @@ export const config = {
   callbacks: {
     async session({ session, user, trigger, token }: any) {
       session.user.id = token.sub;
-      if (trigger === "update") {
-        session.user.name = user.name;
-      }
+      if (trigger === "update") session.user.name = user.name;
       return session;
     },
   },
