@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 import SignInForm from "./signInForm";
 
@@ -10,7 +11,15 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-function SignInPage() {
+import { auth } from "@/auth";
+
+async function SignInPage() {
+  const session = await auth();
+
+  if (session) {
+    return redirect("/");
+  }
+
   return (
     <div className="flex items-center justify-center min-h-screen w-full">
       <Card className="w-full max-w-md">
