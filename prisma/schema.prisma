@@ -30,6 +30,7 @@ model User {
   id            String    @id @default(uuid())
   name          String    @default("NO_NAME")
   email         String?   @unique(map: "user_email_idx")
+  mobile        String?   @unique
   password      String?
   image         String?
   role          String    @default("user")

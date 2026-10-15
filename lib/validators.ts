@@ -22,6 +22,7 @@ export const signInFormSchema = z.object({
 export const signUpFormSchema = z.object({
   name: z.string().min(2, "Name should be 2 or more characters."),
   email: z.string(),
+  mobile: z.string(),
   password: z.string().min(5, "Password should be 5 or more characters."),
   confirmPassword: z
     .string()

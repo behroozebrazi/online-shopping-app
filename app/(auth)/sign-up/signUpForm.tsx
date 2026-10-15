@@ -58,6 +58,13 @@ function SignUpForm() {
           </div>
 
           <div>
+            <Label htmlFor="mobile" className="mb-2">
+              Mobile
+            </Label>
+            <Input id="mobile" name="mobile" type="text" required />
+          </div>
+
+          <div>
             <Label htmlFor="password" className="mb-2">
               Password
             </Label>

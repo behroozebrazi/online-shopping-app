@@ -8,7 +8,6 @@ import { prisma } from "../../lib/prisma";
 import { signIn, signOut } from "@/auth";
 
 import { signInFormSchema, signUpFormSchema } from "../validators";
-import { success } from "zod";
 
 // Sign Up
 export async function signUpUser(prevState: unknown, formData: FormData) {
@@ -16,6 +15,7 @@ export async function signUpUser(prevState: unknown, formData: FormData) {
     const user = signUpFormSchema.parse({
       name: formData.get("name"),
       email: formData.get("email"),
+      mobile: formData.get("mobile"),
       password: formData.get("password"),
       confirmPassword: formData.get("confirmPassword"),
     });
@@ -26,6 +26,7 @@ export async function signUpUser(prevState: unknown, formData: FormData) {
       data: {
         name: user.name,
         email: user.email,
+        mobile: user.mobile,
         password: hashedPassword,
       },
     });
