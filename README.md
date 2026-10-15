@@ -100,4 +100,5 @@ https://authjs.dev/getting-started/installation?framework=Next.js
    NEXTAUTH_URL=http://localhost:3000
    NEXTAUTH_URL_INTERNAL=http://localhost:3000
 4. Config authentication in Next.js:
-   Create auth.ts in root
+   Create ./auth.ts in root
+   Create app/api/auth/[...nextauth]/route.ts in root
