@@ -1,3 +1,6 @@
+import { Suspense } from "react";
+import { connection } from "next/server";
+
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
@@ -14,6 +17,22 @@ import {
 import { auth } from "@/auth";
 
 async function SignInPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex min-h-screen w-full items-center justify-center text-center">
+          Loading ...
+        </div>
+      }
+    >
+      <SignInContent />
+    </Suspense>
+  );
+}
+
+async function SignInContent() {
+  await connection();
+
   const session = await auth();
 
   if (session) {

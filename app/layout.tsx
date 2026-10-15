@@ -15,9 +15,9 @@ export const metadata: Metadata = {
   description: "Online shopping app",
 };
 
-const vazirFont = localFont({
-  src: "../public/font/Vazirmatn[wght].woff2",
-});
+// const vazirFont = localFont({
+//   src: "../public/font/Vazirmatn[wght].woff2",
+// });
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
@@ -27,7 +27,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       dir="ltr"
       className={cn("antialiased", "m-2", "font-sans", geist.variable)}
     >
-      <body className={`${vazirFont.className} overflow-x-hidden`}>
+      {/* <body className={`${vazirFont.className} overflow-x-hidden`}> */}
+      <body className={"overflow-x-hidden"}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
