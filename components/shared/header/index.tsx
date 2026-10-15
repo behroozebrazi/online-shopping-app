@@ -1,9 +1,14 @@
+import { Suspense } from "react";
+
 import Link from "next/link";
-import { ShoppingCart, UserIcon, GlobeCheck } from "lucide-react";
+
+import { ShoppingCart, GlobeCheck } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 
 import ThemeToggle from "./themeToggle";
+
+import UserButton from "./userButton";
 
 function Header() {
   return (
@@ -25,9 +30,7 @@ function Header() {
             <ShoppingCart /> Cart
           </Button>
 
-          <Button nativeButton={false} render={<Link href="/sign-in" />}>
-            <UserIcon /> Account
-          </Button>
+          <UserButton />
         </div>
       </div>
     </header>
