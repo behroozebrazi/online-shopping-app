@@ -46,7 +46,7 @@ function SignInForm() {
           </div>
 
           <div>
-            <Button variant="default" className="w-full">
+            <Button type="submit" variant="default" className="w-full">
               Sign In
             </Button>
           </div>
