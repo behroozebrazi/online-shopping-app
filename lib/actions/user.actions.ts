@@ -13,7 +13,7 @@ import { success } from "zod";
 // Sign Up
 export async function signUpUser(prevState: unknown, formData: FormData) {
   try {
-    const user = signInFormSchema.parse({
+    const user = signUpFormSchema.parse({
       name: formData.get("name"),
       email: formData.get("email"),
       password: formData.get("password"),
