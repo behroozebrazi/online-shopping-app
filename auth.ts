@@ -12,19 +12,23 @@ import { compareSync } from "bcryptjs";
 
 // Config Next Auth
 export const config = {
+  //
   pages: {
     signIn: "/sign-in", // url
     error: "/sign-in", // url
   },
 
+  //
   session: {
     strategy: "jwt", // Json Web Token
     maxAge: 30 * 24 * 60 * 60, // 30 days
     updateAge: 24 * 60 * 60, // 24 hours
   },
 
+  //
   adapter: PrismaAdapter(prisma),
 
+  //
   providers: [
     CredentialsProvider({
       // login method: login by email and password
@@ -60,11 +64,24 @@ export const config = {
     }),
   ],
 
+  //
   callbacks: {
     async session({ session, user, trigger, token }: any) {
       session.user.id = token.sub;
-      if (trigger === "update") session.user.name = user.name;
+      session.user.role = token.role;
+
+      if (trigger === "update") {
+        session.user.name = user.name;
+      }
       return session;
+    },
+
+    //
+    async jwt({ session, user, trigger, token }: any) {
+      if (user) {
+        token.role = user.role;
+      }
+      return token;
     },
   },
 } satisfies NextAuthConfig;
