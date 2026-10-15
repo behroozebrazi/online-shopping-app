@@ -16,27 +16,31 @@ import {
 
 import { auth } from "@/auth";
 
-async function SignInPage() {
+type SignInPageProps = { searchParams: Promise<{ callback?: string }> };
+
+async function SignInPage(props: SignInPageProps) {
   return (
     <Suspense
       fallback={
         <div className="flex min-h-screen w-full items-center justify-center text-center">
-          Loading ...
+          <p className="text-sm text-muted-foreground">Loading...</p>
         </div>
       }
     >
-      <SignInContent />
+      <SignInContent searchParams={props.searchParams} />
     </Suspense>
   );
 }
 
-async function SignInContent() {
+async function SignInContent({ searchParams }: SignInPageProps) {
   await connection();
+
+  const { callback } = await searchParams;
 
   const session = await auth();
 
   if (session) {
-    return redirect("/");
+    return redirect(callback || "/");
   }
 
   return (

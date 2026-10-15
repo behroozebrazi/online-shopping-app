@@ -24,6 +24,8 @@ npx shadcn@latest init
   npx shadcn@latest add input
 - https://ui.shadcn.com/docs/components/base/label
   npx shadcn@latest add label
+- https://ui.shadcn.com/docs/components/base/skeleton
+  npx shadcn@latest add skeleton
 
 // Icons ==>>
 https://lucide.dev/

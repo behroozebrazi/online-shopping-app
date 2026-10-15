@@ -2,6 +2,7 @@
 
 import { useActionState } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -15,9 +16,15 @@ function SignInForm() {
     message: "",
   });
 
+  const searchParams = useSearchParams();
+
+  const callbackUrl = searchParams.get("callback") || "/";
+
   return (
     <>
       <form action={action}>
+        <input type="hidden" name="callbackUrl" value={callbackUrl} />
+
         <div className="space-y-6">
           <div>
             <Label htmlFor="email" className="mb-2">
