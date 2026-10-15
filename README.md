@@ -11,14 +11,19 @@ https://tailwindcss.com/
 https://ui.shadcn.com/
 https://ui.shadcn.com/docs/components
 npx shadcn@latest init
-https://ui.shadcn.com/docs/components/base/button -> Button
-npx shadcn@latest add button
-https://ui.shadcn.com/docs/components/base/dropdown-menu -> Dropdown Menu
-npx shadcn@latest add dropdown-menu
-https://ui.shadcn.com/docs/components/base/card -> Card
-npx shadcn@latest add card
-https://ui.shadcn.com/docs/components/base/badge
-npx shadcn@latest add badge
+
+- https://ui.shadcn.com/docs/components/base/button -> Button
+  npx shadcn@latest add button
+- https://ui.shadcn.com/docs/components/base/dropdown-menu -> Dropdown Menu
+  npx shadcn@latest add dropdown-menu
+- https://ui.shadcn.com/docs/components/base/card -> Card
+  npx shadcn@latest add card
+- https://ui.shadcn.com/docs/components/base/badge
+  npx shadcn@latest add badge
+- https://ui.shadcn.com/docs/components/base/input
+  npx shadcn@latest add input
+- https://ui.shadcn.com/docs/components/base/label
+  npx shadcn@latest add label
 
 // Icons ==>>
 https://lucide.dev/

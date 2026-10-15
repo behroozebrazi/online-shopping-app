@@ -12,11 +12,11 @@ import {
 
 function SignInPage() {
   return (
-    <div className="min-h-screen flex items-center justify-center">
+    <div className="flex items-center justify-center min-h-screen w-full">
       <Card className="w-full max-w-md">
         <CardHeader className="space-y-4">
           <Link href="/">Return to shop</Link>
-          <CardTitle className="text-center">Enter</CardTitle>
+          <CardTitle className="text-center">Welcome</CardTitle>
           <CardDescription className="text-center">
             Login to account
           </CardDescription>
