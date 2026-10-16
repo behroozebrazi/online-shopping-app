@@ -19,8 +19,8 @@ async function SignInPage(props: {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      <Card className="w-full max-w-md">
+    <div className="min-h-screen w-full flex items-center justify-center">
+      <Card className="w-full max-w-md p-5">
         <CardHeader className="space-y-4">
           <CardTitle className="text-center">Login with Mobile</CardTitle>
         </CardHeader>
