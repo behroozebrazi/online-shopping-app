@@ -118,3 +118,5 @@ https://authjs.dev/getting-started/installation?framework=Next.js
 - update UI form
 
 //
+npm install axios
+// ./lib/actions/otp.actions.ts
