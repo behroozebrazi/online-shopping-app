@@ -109,3 +109,12 @@ https://authjs.dev/getting-started/installation?framework=Next.js
 4. Config authentication in Next.js:
    Create ./auth.ts in root
    Create app/api/auth/[...nextauth]/route.ts in root
+
+// Adding data to app and database:
+
+- update prisma/schema.prisma
+- update lib/validators.ts
+- update lib/actions/...
+- update UI form
+
+//

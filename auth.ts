@@ -12,26 +12,28 @@ import { compareSync } from "bcryptjs";
 
 // Config Next Auth
 export const config = {
-  //
+  // ---------- Pages
   pages: {
     signIn: "/sign-in", // url
     error: "/sign-in", // url
   },
 
-  //
+  // ---------- Session
   session: {
     strategy: "jwt", // Json Web Token
     maxAge: 30 * 24 * 60 * 60, // 30 days
     updateAge: 24 * 60 * 60, // 24 hours
   },
 
-  //
+  // ---------- Adaptor
   adapter: PrismaAdapter(prisma),
 
-  //
+  // ---------- Providers
   providers: [
+    // ------------------------------ Login Method 1: login by Email and Password
     CredentialsProvider({
-      // login method: login by email and password
+      id: "email-login",
+      name: "Email Login",
       credentials: { email: { type: "email" }, password: { type: "password" } },
 
       async authorize(credentials) {
@@ -42,13 +44,13 @@ export const config = {
           where: { email: credentials.email as string },
         });
 
+        // return user info
         // compare the given user's password with database
         if (user && user.password) {
           const isMatch = compareSync(
             credentials.password as string,
             user.password,
           );
-
           if (isMatch) {
             return {
               id: user.id,
@@ -58,13 +60,39 @@ export const config = {
             };
           }
         }
+        return null;
+      },
+    }),
 
+    // ------------------------------ Login Method 2: login by Mobile
+    CredentialsProvider({
+      id: "mobile-name",
+      name: "Mobile Login",
+      credentials: { mobile: { type: "text", label: "mobile" } },
+
+      async authorize(credentials) {
+        if (credentials?.mobile === null) return null;
+
+        // fetch the user info by user's email
+        const user = await prisma.user.findUnique({
+          where: { mobile: credentials.mobile as string },
+        });
+
+        // return user info
+        if (user) {
+          return {
+            id: user.id,
+            name: user.name,
+            email: user.email,
+            role: user.role,
+          };
+        }
         return null;
       },
     }),
   ],
 
-  //
+  // ---------- Callback
   callbacks: {
     async session({ session, user, trigger, token }: any) {
       session.user.id = token.sub;
