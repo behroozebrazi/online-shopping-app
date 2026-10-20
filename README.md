@@ -130,4 +130,3 @@ npm install axios
 - npx prisma migrate dev --name add_cart
 - => add action {} -> lib/actions/cart.actions.ts
 - => add cart component -> components/shared/product/addToCart.tsx
--
