@@ -28,3 +28,24 @@ export const signUpFormSchema = z.object({
     .string()
     .min(5, "Password should be 5 or more characters."),
 });
+
+// validation one card item
+export const cartItemSchema = z.object({
+  productId: z.string(),
+  name: z.string(),
+  slug: z.string(),
+  qty: z.number().int(),
+  image: z.string(),
+  price: z.coerce.number(),
+});
+
+// validation card items
+export const insertCartSchema = z.object({
+  items: z.array(cartItemSchema),
+  itemsPrice: z.string(),
+  shippingPrice: z.string(),
+  totalPrice: z.string(),
+  // define/manage card in session
+  sessionCardId: z.string(),
+  userId: z.string().optional().nullable(),
+});

@@ -120,3 +120,13 @@ https://authjs.dev/getting-started/installation?framework=Next.js
 //
 npm install axios
 // ./lib/actions/otp.actions.ts
+
+// Adding card and card item to the app
+
+- => update {cartItemSchema, insertCartSchema} -> lib/validators.ts
+- => update {CartItem, Cart} -> types/index.ts
+- => update database {} -> prisma/schema.prisma
+- npx prisma generate
+- npx prisma migrate dev --name add_cart
+- => add cart component -> components/shared/product/addToCart.tsx
+-
