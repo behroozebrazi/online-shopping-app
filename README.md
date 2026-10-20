@@ -128,5 +128,6 @@ npm install axios
 - => update database {} -> prisma/schema.prisma
 - npx prisma generate
 - npx prisma migrate dev --name add_cart
+- => add action {} -> lib/actions/cart.actions.ts
 - => add cart component -> components/shared/product/addToCart.tsx
 -
