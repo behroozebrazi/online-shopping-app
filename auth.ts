@@ -1,3 +1,6 @@
+import { cookies } from "next/headers";
+import { NextResponse } from "next/server";
+
 import NextAuth from "next-auth";
 
 import CredentialsProvider from "next-auth/providers/credentials";
@@ -110,6 +113,27 @@ export const config = {
         token.role = user.role;
       }
       return token;
+    },
+
+    // take session from cookie
+    authorized({ request, auth }: any) {
+      // create sessionCartId if it doesn't exist
+      if (!request.cookies.get("sessionCartId")) {
+        const sessionCartId = crypto.randomUUID();
+
+        // take request from header
+        const newRequestHeaders = new Headers(request.headers);
+
+        // update header using NextResponse
+        const response = NextResponse.next({
+          request: {
+            headers: newRequestHeaders,
+          },
+        });
+        return response;
+      } else {
+        return true;
+      }
     },
   },
 } satisfies NextAuthConfig;
