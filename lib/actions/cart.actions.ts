@@ -19,12 +19,22 @@ export async function addItemToCart(data: CartItem) {
     const session = await auth();
     const userId = session?.user?.id ? (session.user.id as string) : undefined;
 
-    const cart = await getMyCart();
     const item = cartItemSchema.parse(data);
 
     const product = await prisma.product.findFirst({
       where: { id: item.productId },
     });
+    if (!product) throw new Error("Producy not found.");
+
+    const cart = await getMyCart();
+    if (!cart) {
+      const newCart = {
+        userId: userId,
+        items: [item],
+        sessionCartId: sessionCartId,
+        ...calculatePrice([item]),
+      };
+    }
 
     return {
       success: true,
@@ -56,5 +66,22 @@ export async function getMyCart() {
     itemsPrice: cart.itemsPrice.toString(),
     shippingPrice: cart.shippingPrice.toString(),
     totalPrice: cart.totalPrice.toString(),
+  };
+}
+
+function calculatePrice(items: CartItem[]) {
+  const itemsPrice = items.reduce(
+    (acc, item) => Number(item.price) * item.qty + acc,
+    0,
+  );
+
+  const shippingPrice = itemsPrice > 100 ? 0 : 20;
+
+  const totalPrice = itemsPrice + shippingPrice;
+
+  return {
+    itemsPrice,
+    shippingPrice,
+    totalPrice,
   };
 }
