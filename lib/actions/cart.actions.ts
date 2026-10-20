@@ -2,6 +2,8 @@
 
 import { cookies } from "next/headers";
 
+import { revalidatePath } from "next/cache";
+
 import { auth } from "@/auth";
 
 import { prisma } from "../../lib/prisma";
@@ -34,6 +36,37 @@ export async function addItemToCart(data: CartItem) {
         sessionCartId: sessionCartId,
         ...calculatePrice([item]),
       };
+
+      await prisma.cart.create({ data: newCart });
+
+      revalidatePath(`/product/${product.slug}`);
+    } else {
+      const existItem = (cart.items as CartItem[]).find(
+        (p) => p.productId === item.productId,
+      );
+
+      if (existItem) {
+        if (product.stock < existItem.qty + 1)
+          throw new Error("Product not exist.");
+
+        (cart.items as CartItem[]).find(
+          (p) => p.productId === item.productId,
+        )!.qty = existItem.qty + 1;
+      } else {
+        if (product.stock < 1) throw new Error("Product not exist.");
+
+        cart.items.push(item);
+      }
+
+      await prisma.cart.update({
+        where: { id: cart.id },
+        data: {
+          items: cart.items,
+          ...calculatePrice(cart.items as CartItem[]),
+        },
+      });
+
+      revalidatePath(`/product/${product.slug}`);
     }
 
     return {
