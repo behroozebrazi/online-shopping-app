@@ -26,6 +26,8 @@ npx shadcn@latest init
   npx shadcn@latest add label
 - https://ui.shadcn.com/docs/components/base/skeleton
   npx shadcn@latest add skeleton
+- https://ui.shadcn.com/docs/components/base/table
+  npx shadcn@latest add table
 
 // Icons ==>>
 https://lucide.dev/
