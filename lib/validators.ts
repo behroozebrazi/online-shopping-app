@@ -49,3 +49,14 @@ export const insertCartSchema = z.object({
   sessionCartId: z.string(),
   userId: z.string().optional().nullable(),
 });
+
+// validation order address
+export const shippingAddressSchema = z.object({
+  fullname: z.string(),
+  streetAddress: z.string(),
+  apartment: z.string().optional(),
+  city: z.string(),
+  state: z.string(),
+  postalCode: z.string(),
+  phoneNumber: z.string().optional(),
+});
