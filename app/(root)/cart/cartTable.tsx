@@ -4,7 +4,13 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 
-import { ShoppingCart, ArrowRight, Plus, Minus } from "lucide-react";
+import {
+  ShoppingCart,
+  ArrowRight,
+  Plus,
+  Minus,
+  CartonIcon,
+} from "lucide-react";
 
 import { addItemToCart, removeItemFromCart } from "@/lib/actions/cart.actions";
 
@@ -95,6 +101,22 @@ function CartTable({ cart }: { cart?: Cart }) {
     cart && cart.items.length > 0 ? (
       <div className="grid grid-cols-4 gap-5">
         <div className="overflow-x-auto col-span-3">{cartTable}</div>
+
+        <Card className="h-40">
+          <CardContent className="gap-4 p-4">
+            <div className="pb-10 text-xl">
+              Total price:
+              <span className="pl-2">$ {cart.itemsPrice}</span>
+            </div>
+
+            <Button
+              className="w-full"
+              onClick={() => router.push("/shipping-address")}
+            >
+              Check out
+            </Button>
+          </CardContent>
+        </Card>
       </div>
     ) : (
       <div className="flex flex-col items-center gap-4 py-20 text-center">
