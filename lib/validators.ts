@@ -52,9 +52,22 @@ export const insertCartSchema = z.object({
 
 // validation order address
 export const shippingAddressSchema = z.object({
-  fullName: z.string(),
-  streetAddress: z.string(),
-  city: z.string(),
-  state: z.string(),
-  postalCode: z.string(),
+  fullName: z.string().trim().min(3, "Name must be at least 3 characters"),
+  streetAddress: z
+    .string()
+    .trim()
+    .min(3, "Street must be at least 3 characters"),
+  city: z.string().trim().min(2, "City must be at least 2 characters"),
+  state: z.string().trim().min(2, "State is required"),
+  postalCode: z
+    .string()
+    .trim()
+    .regex(/^\d{5}(-\d{4})?$/, "Enter a valid ZIP code"), // US format
 });
+// export const shippingAddressSchema = z.object({
+//   fullName: z.string(),
+//   streetAddress: z.string(),
+//   city: z.string(),
+//   state: z.string(),
+//   postalCode: z.string(),
+// });

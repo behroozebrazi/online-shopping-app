@@ -1,3 +1,5 @@
+import { connection } from "next/server";
+
 import Link from "next/link";
 
 import { UserIcon } from "lucide-react";
@@ -7,7 +9,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
@@ -16,6 +17,8 @@ import { auth } from "@/auth";
 import { signOutUser } from "@/lib/actions/user.actions";
 
 async function UserButton() {
+  await connection();
+
   const session = await auth();
 
   // No logins for this account

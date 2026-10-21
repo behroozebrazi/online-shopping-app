@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Controller, useForm } from "react-hook-form";
+import { Controller, useForm, SubmitHandler } from "react-hook-form";
 import { z } from "zod";
 
 import { Input } from "@/components/ui/input";
@@ -15,9 +15,10 @@ import {
   FieldLabel,
 } from "@/components/ui/field";
 
-import { ArrowRight } from "lucide-react";
-
 import { shippingAddressSchema } from "@/lib/validators";
+import { updateUserAddress } from "@/lib/actions/user.actions";
+
+import { ArrowRight } from "lucide-react";
 
 import { type ShippingAddress } from "@/types";
 
@@ -35,13 +36,19 @@ function ShippingForm({ address }: { address: ShippingAddress }) {
     },
   });
 
-  async function onSubmit() {}
+  async function onSubmit(values: z.infer<typeof shippingAddressSchema>) {
+    const response = await updateUserAddress(values);
+    if (!response.success) return null;
+
+    router.push("/payment-method");
+  }
 
   return (
     <>
       <div className="max-w-md mx-auto space-y-4">
         <h1 className="mt-4 font-bold">Address</h1>
         <p className="text-sm text-muted-foreground">Enter the address</p>
+
         <form
           id="shipping-form"
           method="post"

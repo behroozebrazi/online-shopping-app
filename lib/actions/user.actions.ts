@@ -5,9 +5,16 @@ import { hashSync } from "bcryptjs";
 
 import { prisma } from "../../lib/prisma";
 
-import { signIn, signOut } from "@/auth";
+import { auth, signIn, signOut } from "@/auth";
 
-import { signInFormSchema, signUpFormSchema } from "../validators";
+import {
+  signInFormSchema,
+  signUpFormSchema,
+  shippingAddressSchema,
+} from "../validators";
+
+import { type ShippingAddress } from "@/types";
+import { success } from "zod";
 
 // Sign Up
 export async function signUpUser(prevState: unknown, formData: FormData) {
@@ -80,4 +87,24 @@ export async function getUserById(userId: string) {
   if (!user) throw new Error("User not found.");
 
   return user;
+}
+
+// Update user address
+export async function updateUserAddress(data: ShippingAddress) {
+  try {
+    const session = await auth();
+    const userId = session?.user?.id;
+    if (!userId) throw new Error("Not authenticated");
+
+    const user = await prisma.user.findFirst({ where: { id: userId } });
+    if (!user) throw new Error("User not found.");
+
+    const address = shippingAddressSchema.parse(data);
+
+    await prisma.user.update({ where: { id: user.id }, data: { address } });
+
+    return { success: true, message: "User address was updated." };
+  } catch (error) {
+    return { success: false, message: error };
+  }
 }

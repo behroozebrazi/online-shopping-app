@@ -31,7 +31,7 @@ npx shadcn@latest init
 - https://ui.shadcn.com/docs/forms
   https://ui.shadcn.com/docs/forms/react-hook-form
   https://ui.shadcn.com/docs/components/base/field
-  npx shadcn@latest add form
+  npx shadcn@latest add field
 
 // Icons ==>>
 https://lucide.dev/

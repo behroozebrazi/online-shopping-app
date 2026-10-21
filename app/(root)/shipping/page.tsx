@@ -1,29 +1,48 @@
+import { connection } from "next/server";
+
+import { Suspense } from "react";
 import { redirect } from "next/navigation";
 
 import { auth } from "@/auth";
 
+import { shippingAddressSchema } from "@/lib/validators";
 import { getMyCart } from "@/lib/actions/cart.actions";
 import { getUserById } from "@/lib/actions/user.actions";
 
+import type { ShippingAddress } from "@/types";
+
 import ShippingForm from "./shippingForm";
 
-import { type ShippingAddress } from "@/types";
+const emptyAddress: ShippingAddress = {
+  fullName: "",
+  streetAddress: "",
+  city: "",
+  state: "",
+  postalCode: "",
+};
 
-async function ShippingPage() {
-  const cart = await getMyCart();
-  if (!cart || cart.items.length === 0) redirect("/");
-
-  const session = await auth();
-  const userId = session?.user?.id;
-  if (!userId) throw new Error("No user id");
-
-  const user = await getUserById(userId);
-
+export default function ShippingPage() {
   return (
-    <div>
-      <ShippingForm address={user?.address as ShippingAddress} />
-    </div>
+    <Suspense fallback={<div>Loading…</div>}>
+      <ShippingContent />
+    </Suspense>
   );
 }
 
-export default ShippingPage;
+async function ShippingContent() {
+  await connection();
+
+  const cart = await getMyCart();
+  if (!cart || cart.items.length === 0) redirect("/cart");
+
+  const session = await auth();
+  const userId = session?.user?.id;
+  if (!userId) redirect("/sign-in"); // redirect instead of throwing
+
+  const user = await getUserById(userId);
+
+  const parsed = shippingAddressSchema.safeParse(user.address);
+  const address = parsed.success ? parsed.data : emptyAddress;
+
+  return <ShippingForm address={address} />;
+}
