@@ -52,11 +52,9 @@ export const insertCartSchema = z.object({
 
 // validation order address
 export const shippingAddressSchema = z.object({
-  fullname: z.string(),
+  fullName: z.string(),
   streetAddress: z.string(),
-  apartment: z.string().optional(),
   city: z.string(),
   state: z.string(),
   postalCode: z.string(),
-  phoneNumber: z.string().optional(),
 });

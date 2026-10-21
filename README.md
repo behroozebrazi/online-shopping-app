@@ -28,7 +28,9 @@ npx shadcn@latest init
   npx shadcn@latest add skeleton
 - https://ui.shadcn.com/docs/components/base/table
   npx shadcn@latest add table
-- https://ui.shadcn.com/docs/forms/react-hook-form
+- https://ui.shadcn.com/docs/forms
+  https://ui.shadcn.com/docs/forms/react-hook-form
+  https://ui.shadcn.com/docs/components/base/field
   npx shadcn@latest add form
 
 // Icons ==>>
@@ -137,3 +139,4 @@ npm install axios
 
 // React Hook Form
 npm install react-hook-form @hookform/resolvers
+npm install react-hook-form @hookform/resolvers zod
