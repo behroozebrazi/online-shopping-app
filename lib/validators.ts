@@ -9,7 +9,7 @@ export const insertProductSchema = z.object({
   description: z.string(),
   stock: z.number(),
   image: z.string(),
-  price: z.string(),
+  price: z.coerce.number(),
 });
 
 // validation sign in form
