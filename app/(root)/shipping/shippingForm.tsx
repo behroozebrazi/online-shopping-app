@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Controller, useForm, SubmitHandler } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Input } from "@/components/ui/input";
@@ -66,7 +66,7 @@ function ShippingForm({ address }: { address: ShippingAddress }) {
                     {...field}
                     id="shipping-form-fullName"
                     aria-invalid={fieldState.invalid}
-                    placeholder="Enter your name"
+                    placeholder="Name"
                   />
                   {fieldState.invalid && (
                     <FieldError errors={[fieldState.error]} />

@@ -13,6 +13,8 @@ import type { ShippingAddress } from "@/types";
 
 import ShippingForm from "./shippingForm";
 
+import CheckoutSteps from "@/components/shared/checkoutSteps";
+
 const emptyAddress: ShippingAddress = {
   fullName: "",
   streetAddress: "",
@@ -44,5 +46,10 @@ async function ShippingContent() {
   const parsed = shippingAddressSchema.safeParse(user.address);
   const address = parsed.success ? parsed.data : emptyAddress;
 
-  return <ShippingForm address={address} />;
+  return (
+    <div>
+      <CheckoutSteps currentStep={1} />
+      <ShippingForm address={address} />
+    </div>
+  );
 }
