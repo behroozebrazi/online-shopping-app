@@ -28,6 +28,8 @@ npx shadcn@latest init
   npx shadcn@latest add skeleton
 - https://ui.shadcn.com/docs/components/base/table
   npx shadcn@latest add table
+- https://ui.shadcn.com/docs/forms/react-hook-form
+  npx shadcn@latest add form
 
 // Icons ==>>
 https://lucide.dev/
@@ -132,3 +134,6 @@ npm install axios
 - npx prisma migrate dev --name add_cart
 - => add action {} -> lib/actions/cart.actions.ts
 - => add cart component -> components/shared/product/addToCart.tsx
+
+// React Hook Form
+npm install react-hook-form @hookform/resolvers

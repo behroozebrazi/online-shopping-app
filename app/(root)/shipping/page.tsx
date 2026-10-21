@@ -5,7 +5,9 @@ import { auth } from "@/auth";
 import { getMyCart } from "@/lib/actions/cart.actions";
 import { getUserById } from "@/lib/actions/user.actions";
 
-import { ShippingAddress } from "@/types";
+import ShippingForm from "./shippingForm";
+
+import { type ShippingAddress } from "@/types";
 
 async function ShippingPage() {
   const cart = await getMyCart();
@@ -17,7 +19,11 @@ async function ShippingPage() {
 
   const user = await getUserById(userId);
 
-  return <div>Shipping Page</div>;
+  return (
+    <div>
+      <ShippingForm address={user?.address as ShippingAddress} />
+    </div>
+  );
 }
 
 export default ShippingPage;
