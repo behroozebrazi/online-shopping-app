@@ -1,6 +1,5 @@
 "use client";
 
-import { useRouter } from "next/router";
 import { Plus, Minus } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -10,8 +9,6 @@ import { addItemToCart, removeItemFromCart } from "@/lib/actions/cart.actions";
 import { CartItem, Cart } from "@/types";
 
 function AddToCart({ item, cart }: { item: CartItem; cart?: Cart }) {
-  const router = useRouter();
-
   async function addToCartHandler() {
     const response = await addItemToCart(item);
   }

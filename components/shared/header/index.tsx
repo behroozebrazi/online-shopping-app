@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import Link from "next/link";
 
 import { ShoppingCart, GlobeCheck } from "lucide-react";
+import { UserIcon } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 
@@ -30,7 +31,15 @@ function Header() {
             <ShoppingCart /> Cart
           </Button>
 
-          <UserButton />
+          <Suspense
+            fallback={
+              <Button disabled>
+                <UserIcon /> Account
+              </Button>
+            }
+          >
+            <UserButton />
+          </Suspense>
         </div>
       </div>
     </header>

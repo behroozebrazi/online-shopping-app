@@ -116,25 +116,25 @@ export const config = {
     },
 
     // take session from cookie
-    authorized({ request, auth }: any) {
-      // create sessionCartId if it doesn't exist
-      if (!request.cookies.get("sessionCartId")) {
-        const sessionCartId = crypto.randomUUID();
+    // authorized({ request, auth }: any) {
+    //   // create sessionCartId if it doesn't exist
+    //   if (!request.cookies.get("sessionCartId")) {
+    //     const sessionCartId = crypto.randomUUID();
 
-        // take request from header
-        const newRequestHeaders = new Headers(request.headers);
+    //     // take request from header
+    //     const newRequestHeaders = new Headers(request.headers);
 
-        // update header using NextResponse
-        const response = NextResponse.next({
-          request: {
-            headers: newRequestHeaders,
-          },
-        });
-        return response;
-      } else {
-        return true;
-      }
-    },
+    //     // update header using NextResponse
+    //     const response = NextResponse.next({
+    //       request: {
+    //         headers: newRequestHeaders,
+    //       },
+    //     });
+    //     return response;
+    //   } else {
+    //     return true;
+    //   }
+    // },
   },
 } satisfies NextAuthConfig;
 
