@@ -46,6 +46,6 @@ export const insertCartSchema = z.object({
   shippingPrice: z.string(),
   totalPrice: z.string(),
   // define/manage card in session
-  sessionCardId: z.string(),
+  sessionCartId: z.string(),
   userId: z.string().optional().nullable(),
 });
