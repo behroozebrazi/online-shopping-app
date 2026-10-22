@@ -19,3 +19,9 @@ export default auth((req) => {
 
   return NextResponse.next();
 });
+
+export const config = {
+  matcher: [
+    "/((?!api|_next/static|_next/image|images|favicon.ico|.*\\.(?:png|jpg|jpeg|gif|webp|svg|ico)$).*)",
+  ],
+};
