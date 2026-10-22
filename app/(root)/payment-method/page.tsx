@@ -1,10 +1,26 @@
+import { connection } from "next/server";
+import { Suspense } from "react";
+
 import { auth } from "@/auth";
 
 import { getUserById } from "@/lib/actions/user.actions";
 
 import CheckoutSteps from "@/components/shared/checkoutSteps";
 
-async function PaymentMethodPage() {
+import PaymentMethodForm from "./paymentMethodForm";
+import { DEFAULT_PAYMENT_METHOD, PAYMENT_METHODS } from "@/lib/constants";
+
+function PaymentMethodPage() {
+  return (
+    <Suspense fallback={<div>Loading…</div>}>
+      <PaymentContent />
+    </Suspense>
+  );
+}
+
+async function PaymentContent() {
+  await connection();
+
   // take user id
   const session = await auth();
   const userId = session?.user?.id;
@@ -14,7 +30,11 @@ async function PaymentMethodPage() {
   return (
     <>
       <CheckoutSteps currentStep={2} />
-      <div>form</div>
+
+      <PaymentMethodForm
+        preferredPaymentMethod={user.paymentMethod ?? DEFAULT_PAYMENT_METHOD}
+        paymentMethods={PAYMENT_METHODS || []}
+      />
     </>
   );
 }
