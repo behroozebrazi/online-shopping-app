@@ -10,8 +10,8 @@ import { auth } from "@/auth";
 import { getMyCart } from "@/lib/actions/cart.actions";
 import { getUserById } from "@/lib/actions/user.actions";
 
-import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import {
   Table,
   TableBody,
@@ -71,13 +71,17 @@ async function PlaceOrderContent() {
   const tableContentDom = cart.items.map((item) => (
     <TableRow key={item.slug}>
       <TableCell className="text-right">
-        <Link href={`/product/item.slug`} className="flex items-center gap-2">
+        <Link
+          href={`/product/${item.slug}`}
+          className="flex items-center gap-2"
+        >
           <Image
             src={item.image}
             alt={item.name}
-            width={50}
-            height={50}
-            className="rounded-md"
+            width={100}
+            height={100}
+            loading="eager"
+            className="rounded-md object-cover size-20"
           />
         </Link>
       </TableCell>
