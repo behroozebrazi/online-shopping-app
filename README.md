@@ -32,6 +32,8 @@ npx shadcn@latest init
   https://ui.shadcn.com/docs/forms/react-hook-form
   https://ui.shadcn.com/docs/components/base/field
   npx shadcn@latest add field
+- https://ui.shadcn.com/docs/components/base/radio-group
+  npx shadcn@latest add radio-group
 
 // Icons ==>>
 https://lucide.dev/
