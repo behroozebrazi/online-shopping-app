@@ -72,6 +72,8 @@ https://www.prisma.io/docs/v7/prisma-orm/quickstart/sqlite
    export { prisma };
 5. Seed the database from a local file such as ./data/products.ts and ./data/users.ts
    . npx tsx ./data/seed.ts
+6. npx prisma generate
+   npx prisma migrate dev --name add_user
 
 // Actions ==> work with database
 . actions functions run on server side -> "use server"

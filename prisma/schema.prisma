@@ -13,16 +13,17 @@ datasource db {
 }
 
 model Product {
-  id          String   @id @default(uuid())
+  id          String      @id @default(uuid())
   name        String
-  slug        String   @unique(map: "product_slug_idx")
+  slug        String      @unique(map: "product_slug_idx")
   category    String
   image       String
   brand       String
   description String
   stock       Int
-  price       Int      @default(0)
-  createdAt   DateTime @default(now())
+  price       Int         @default(0)
+  createdAt   DateTime    @default(now())
+  orderItems  OrderItem[]
 }
 
 // https://authjs.dev/getting-started/adapters/prisma
@@ -41,6 +42,7 @@ model User {
   account       Account[]
   session       Session[]
   cart          Cart[]
+  orders        Order[]
 }
 
 // https://authjs.dev/getting-started/adapters/prisma
@@ -96,4 +98,39 @@ model Cart {
   totalPrice    Int      @default(0)
   createdAt     DateTime @default(now())
   user          User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+// Save orders in the database
+model Order {
+  id              String    @id @default(uuid())
+  userId          String    @default(uuid())
+  shippingAddress Json
+  paymentMethod   String
+  paymentResult   Json?
+  itemsPrice      Int       @default(0)
+  shippingPrice   Int       @default(0)
+  totalPrice      Int       @default(0)
+  paidAt          DateTime?
+  isPaid          Boolean   @default(false)
+  deliveredAt     DateTime?
+  isDelivered     Boolean   @default(false)
+  createdAt       DateTime  @default(now())
+
+  user       User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  orderItems OrderItem[]
+}
+
+// Save one order in the database
+model OrderItem {
+  orderId   String  @default(uuid())
+  productId String  @default(uuid())
+  name      String
+  slug      String
+  image     String
+  qty       Int
+  price     Int
+  order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@id([orderId, productId])
 }
