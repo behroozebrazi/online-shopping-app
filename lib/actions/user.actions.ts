@@ -3,6 +3,8 @@
 import { isRedirectError } from "next/dist/client/components/redirect-error";
 import { hashSync } from "bcryptjs";
 
+import { z } from "zod";
+
 import { prisma } from "../../lib/prisma";
 
 import { auth, signIn, signOut } from "@/auth";
@@ -11,6 +13,7 @@ import {
   signInFormSchema,
   signUpFormSchema,
   shippingAddressSchema,
+  paymentMethodSchema,
 } from "../validators";
 
 import { type ShippingAddress } from "@/types";
@@ -104,6 +107,31 @@ export async function updateUserAddress(data: ShippingAddress) {
     await prisma.user.update({ where: { id: user.id }, data: { address } });
 
     return { success: true, message: "User address was updated." };
+  } catch (error) {
+    return { success: false, message: error };
+  }
+}
+
+// Update user's payment method
+export async function updateUserPaymentMethod(
+  data: z.infer<typeof paymentMethodSchema>,
+) {
+  try {
+    // find user
+    const session = await auth();
+    const currentUser = await prisma.user.findFirst({
+      where: { id: session?.user?.id },
+    });
+    if (!currentUser) throw new Error("User not found");
+
+    // update user payment
+    const paymentMethod = paymentMethodSchema.parse(data);
+    await prisma.user.update({
+      where: { id: currentUser.id },
+      data: { paymentMethod: paymentMethod.type },
+    });
+
+    return { success: true, message: "User payment method was updated." };
   } catch (error) {
     return { success: false, message: error };
   }
