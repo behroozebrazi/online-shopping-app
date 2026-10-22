@@ -77,7 +77,32 @@ export const shippingAddressSchema = z.object({
 // validation payment methods
 export const paymentMethodSchema = z
   .object({ type: z.string() })
-  .refine((data) => PAYMENT_METHODS.includes(data.type), {
-    path: ["type"],
+  .refine(
+    (data) => (PAYMENT_METHODS as readonly string[]).includes(data.type),
+    {
+      path: ["type"],
+      message: "Invalid payment method",
+    },
+  );
+
+// validation orders
+export const insertOrderSchema = z.object({
+  userId: z.string(),
+  itemsPrice: z.string(),
+  shippingPrice: z.string(),
+  totalPrice: z.string(),
+  shippingAddress: shippingAddressSchema,
+  paymentMethod: z.enum(PAYMENT_METHODS, {
     message: "Invalid payment method",
-  });
+  }),
+});
+
+// validation one order
+export const insertOrderItemSchema = z.object({
+  productId: z.string(),
+  name: z.string(),
+  slug: z.string(),
+  image: z.string(),
+  price: z.string(),
+  qty: z.number(),
+});
