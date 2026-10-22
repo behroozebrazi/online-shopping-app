@@ -25,6 +25,7 @@ async function PaymentContent() {
   const session = await auth();
   const userId = session?.user?.id;
   if (!userId) throw new Error("User not found.");
+  // take user
   const user = await getUserById(userId);
 
   return (
