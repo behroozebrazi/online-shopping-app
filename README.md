@@ -34,6 +34,8 @@ npx shadcn@latest init
   npx shadcn@latest add field
 - https://ui.shadcn.com/docs/components/base/radio-group
   npx shadcn@latest add radio-group
+- https://ui.shadcn.com/docs/components/base/badge
+  npx shadcn@latest add badge
 
 // Icons ==>>
 https://lucide.dev/
