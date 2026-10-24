@@ -9,6 +9,8 @@ import { getUserById } from "./user.actions";
 
 import { insertOrderSchema } from "../validators";
 
+import { convertToPlainObject } from "../utils";
+
 import { type CartItem } from "@/types";
 
 const emptyCart = {
@@ -18,7 +20,7 @@ const emptyCart = {
   totalPrice: 0,
 };
 
-export async function createOrder(mobile: string) {
+export async function createOrder() {
   try {
     const session = await auth();
     if (!session) throw new Error("Session not found.");
@@ -77,4 +79,16 @@ export async function createOrder(mobile: string) {
   } catch (error) {
     return { success: false, message: error, redirect: "/cart" };
   }
+}
+
+export async function getOrderById(orderId: string) {
+  const data = await prisma.order.findFirst({
+    where: { id: orderId },
+    include: {
+      orderItems: true,
+      user: { select: { name: true, email: true } },
+    },
+  });
+
+  return convertToPlainObject(data);
 }

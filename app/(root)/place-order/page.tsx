@@ -22,6 +22,7 @@ import {
 } from "@/components/ui/table";
 
 import CheckoutSteps from "@/components/shared/checkoutSteps";
+import PlaceOrderForm from "./placeOrderForm";
 
 import { type ShippingAddress } from "@/types";
 
@@ -143,14 +144,18 @@ async function PlaceOrderContent() {
                 <div>Product(s) Price</div>
                 <div>$ {cart.itemsPrice}</div>
               </div>
+
               <div className="flex justify-between">
                 <div>Shipping Fee</div>
                 <div>$ {cart.shippingPrice}</div>
               </div>
+
               <div className="flex justify-between">
                 <div>Total Payment</div>
                 <div>$ {cart.totalPrice}</div>
               </div>
+
+              <PlaceOrderForm />
             </CardContent>
           </Card>
         </div>
