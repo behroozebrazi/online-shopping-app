@@ -17,7 +17,9 @@ function PlaceOrderForm() {
 
   return (
     <form onSubmit={handleSubmit} className="w-full">
-      <Button className="w-full">Place order</Button>
+      <Button type="submit" className="w-full">
+        Place order
+      </Button>
     </form>
   );
 }

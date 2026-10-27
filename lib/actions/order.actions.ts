@@ -13,14 +13,14 @@ import { convertToPlainObject } from "../utils";
 
 import { type CartItem } from "@/types";
 
-const emptyCart = {
-  items: [],
-  itemsPrice: 0,
-  shippingPrice: 0,
-  totalPrice: 0,
-};
-
 export async function createOrder() {
+  const emptyCart = {
+    items: [],
+    itemsPrice: 0,
+    shippingPrice: 0,
+    totalPrice: 0,
+  };
+
   try {
     const session = await auth();
     if (!session) throw new Error("Session not found.");
@@ -36,10 +36,25 @@ export async function createOrder() {
       return { success: false, message: "Cart is empty.", redirect: "/cart" };
     }
 
+    if (!user.address) {
+      return {
+        success: false,
+        message: "No shipping address.",
+        redirect: "/shipping",
+      };
+    }
+    if (!user.paymentMethod) {
+      return {
+        success: false,
+        message: "No payment method.",
+        redirect: "/payment-method",
+      };
+    }
+
     // create an order object
     const order = insertOrderSchema.parse({
       userId: user.id,
-      shippimgAddress: user.address,
+      shippingAddress: user.address,
       paymentMethod: user.paymentMethod,
       itemsPrice: cart.itemsPrice,
       shippingPrice: cart.shippingPrice,
@@ -51,20 +66,32 @@ export async function createOrder() {
       const insertedOrder = await tx.order.create({
         data: {
           ...order,
-          itemsPrice: parseInt(order.itemsPrice),
-          shippingPrice: parseInt(order.shippingPrice),
-          totalPrice: parseInt(order.totalPrice),
+          itemsPrice: Number(order.itemsPrice),
+          shippingPrice: Number(order.shippingPrice),
+          totalPrice: Number(order.totalPrice),
         },
       });
 
       for (const item of cart.items as CartItem[]) {
         await tx.orderItem.create({
-          data: { ...item, price: item.price, orderId: insertedOrder.id },
+          data: {
+            ...item,
+            orderId: insertedOrder.id,
+            productId: item.productId,
+            name: item.name,
+            slug: item.slug,
+            qty: item.qty,
+            image: item.image,
+            price: Number(item.price),
+          },
         });
+        // await tx.orderItem.create({
+        //   data: { ...item, price: item.price, orderId: insertedOrder.id },
+        // });
       }
 
       // update cart (empty cart)
-      await tx.cart.update({ where: { id: cart.id }, data: { emptyCart } });
+      await tx.cart.update({ where: { id: cart.id }, data: { ...emptyCart } });
 
       return insertedOrder.id;
     });
@@ -77,7 +104,13 @@ export async function createOrder() {
       redirect: `/order/${insertOrderId}`,
     };
   } catch (error) {
-    return { success: false, message: error, redirect: "/cart" };
+    // return { success: false, message: error, redirect: "/cart" };
+    console.error("createOrder failed:", error);
+    return {
+      success: false,
+      message: error instanceof Error ? error.message : "Something went wrong.",
+      redirect: "/cart",
+    };
   }
 }
 

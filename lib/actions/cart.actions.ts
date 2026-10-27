@@ -1,5 +1,7 @@
 "use server";
 
+import { connection } from "next/server";
+
 import { cookies } from "next/headers";
 
 import { revalidatePath } from "next/cache";
@@ -122,6 +124,8 @@ export async function removeItemFromCart(productId: string) {
 }
 
 export async function getMyCart() {
+  await connection(); // must come before cookies() and auth()
+
   const sessionCartId = (await cookies()).get("sessionCartId")?.value;
   if (!sessionCartId) throw new Error("Session not found.");
 

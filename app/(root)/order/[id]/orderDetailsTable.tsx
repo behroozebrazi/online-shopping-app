@@ -109,8 +109,9 @@ function OrderDetailsTable({ order }: { order: Order }) {
                           <Image
                             src={item.image}
                             alt={item.name}
-                            width={50}
-                            height={50}
+                            width={80}
+                            height={80}
+                            style={{ width: "100px", height: "auto" }}
                             className="rounded-md"
                           />
                         </Link>

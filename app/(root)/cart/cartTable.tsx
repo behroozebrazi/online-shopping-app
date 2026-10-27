@@ -111,7 +111,7 @@ function CartTable({ cart }: { cart?: Cart }) {
 
             <Button
               className="w-full"
-              onClick={() => router.push("/shipping-address")}
+              onClick={() => router.push("/shipping")}
             >
               Check out
             </Button>
