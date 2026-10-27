@@ -43,7 +43,7 @@ export async function requestZarinpalPayment(
     });
 
     if (response.status === 100 && response.url) {
-      return { success: true, message: response.url };
+      return { success: true, message: response.url, url: response.url };
     } else {
       return {
         success: false,

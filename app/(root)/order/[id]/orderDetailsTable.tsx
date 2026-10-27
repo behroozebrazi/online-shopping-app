@@ -3,6 +3,8 @@
 import Link from "next/link";
 import Image from "next/image";
 
+import { useRouter } from "next/navigation";
+
 import {
   Table,
   TableBody,
@@ -11,9 +13,11 @@ import {
   TableHead,
   TableHeader,
 } from "@/components/ui/table";
-
 import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+
+import { requestZarinpalPayment } from "@/lib/actions/payment.actions";
 
 import { formatId } from "@/lib/utils";
 
@@ -34,6 +38,8 @@ function OrderDetailsTable({ order }: { order: Order }) {
     deliveredAt,
   } = order;
 
+  const router = useRouter();
+
   // Convert format date
   function formatDate(date: Date | null) {
     if (date) {
@@ -46,6 +52,16 @@ function OrderDetailsTable({ order }: { order: Order }) {
       });
     }
     return "";
+  }
+
+  async function handlePayment() {
+    const response = await requestZarinpalPayment(order.id, order.user?.email);
+
+    if (response.success && response.url) {
+      router.push(response.url);
+    } else {
+      alert(response.message || "Error on bank connection");
+    }
   }
 
   return (
@@ -149,6 +165,10 @@ function OrderDetailsTable({ order }: { order: Order }) {
                 <div>Total Price</div>
                 <div>$ {totalPrice}</div>
               </div>
+
+              {!isPaid && (
+                <Button onClick={handlePayment} className="w-full">Continue</Button>
+              )}
             </CardContent>
           </Card>
         </div>
