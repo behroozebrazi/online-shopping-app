@@ -146,3 +146,6 @@ npm install axios
 // React Hook Form
 npm install react-hook-form @hookform/resolvers
 npm install react-hook-form @hookform/resolvers zod
+
+// Zarinpal Checkout
+npm install zarinpal-checkout @types/zarinpal-checkout
