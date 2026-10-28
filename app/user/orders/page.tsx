@@ -6,6 +6,8 @@ import { getMyOrders } from "@/lib/actions/order.actions";
 
 import { formatId, formatDate, formatCurrency } from "@/lib/utils";
 
+import Pagination from "@/components/shared/pagination";
+
 import {
   Table,
   TableBody,
@@ -73,6 +75,14 @@ async function OrdersContent({ searchParams }: { searchParams: SearchParams }) {
 
             <TableBody>{tableBody}</TableBody>
           </Table>
+
+          {orders.totalPages > 0 && (
+            <Pagination
+              page={Number(page) || 1}
+              totalPages={orders.totalPages || 1}
+              urlParamName=""
+            ></Pagination>
+          )}
         </div>
       </div>
     </>
