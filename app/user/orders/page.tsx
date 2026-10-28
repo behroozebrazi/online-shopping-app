@@ -76,7 +76,7 @@ async function OrdersContent({ searchParams }: { searchParams: SearchParams }) {
             <TableBody>{tableBody}</TableBody>
           </Table>
 
-          {orders.totalPages > 0 && (
+          {orders.totalPages > 1 && (
             <Pagination
               page={Number(page) || 1}
               totalPages={orders.totalPages || 1}

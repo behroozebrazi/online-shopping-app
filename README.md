@@ -149,3 +149,6 @@ npm install react-hook-form @hookform/resolvers zod
 
 // Zarinpal Checkout
 npm install zarinpal-checkout @types/zarinpal-checkout
+
+// Extract and Manipulate url
+npm install query-string
