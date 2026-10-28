@@ -132,7 +132,7 @@ export async function getMyOrders({
   limit = PAGE_SIZE,
   page,
 }: {
-  limit: number;
+  limit?: number;
   page: number;
 }) {
   const session = await auth();

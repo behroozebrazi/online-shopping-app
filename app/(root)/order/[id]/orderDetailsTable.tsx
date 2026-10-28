@@ -19,7 +19,7 @@ import { Badge } from "@/components/ui/badge";
 
 import { requestZarinpalPayment } from "@/lib/actions/payment.actions";
 
-import { formatId } from "@/lib/utils";
+import { formatId, formatDate } from "@/lib/utils";
 
 import { type Order } from "@/types";
 
@@ -39,20 +39,6 @@ function OrderDetailsTable({ order }: { order: Order }) {
   } = order;
 
   const router = useRouter();
-
-  // Convert format date
-  function formatDate(date: Date | null) {
-    if (date) {
-      return new Date(date).toLocaleDateString("fa-IR", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-        hour: "2-digit",
-        minute: "2-digit",
-      });
-    }
-    return "";
-  }
 
   async function handlePayment() {
     const response = await requestZarinpalPayment(order.id, order.user?.email);
@@ -167,7 +153,9 @@ function OrderDetailsTable({ order }: { order: Order }) {
               </div>
 
               {!isPaid && (
-                <Button onClick={handlePayment} className="w-full">Continue</Button>
+                <Button onClick={handlePayment} className="w-full">
+                  Continue
+                </Button>
               )}
             </CardContent>
           </Card>
