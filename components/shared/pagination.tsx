@@ -2,6 +2,8 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 
+import { formUrlQuery } from "@/lib/utils";
+
 import { Button } from "../ui/button";
 
 type PaginationProps = {
@@ -14,6 +16,16 @@ function Pagination({ page, totalPages, urlParamName }: PaginationProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
+  function handleClick(btnType: string) {
+    const pageValue = btnType === "next" ? Number(page) + 1 : Number(page) - 1;
+    const newUrl = formUrlQuery({
+      params: searchParams.toString(),
+      key: urlParamName || "page",
+      value: pageValue.toString(),
+    });
+    router.push(newUrl);
+  }
+
   return (
     <div className="flex gap-2">
       <Button
@@ -21,6 +33,7 @@ function Pagination({ page, totalPages, urlParamName }: PaginationProps) {
         size="lg"
         className="w-10 m-2 text-lg"
         disabled={Number(page) <= 1}
+        onClick={() => handleClick("prev")}
       >
         {"❮"}
       </Button>
@@ -29,6 +42,7 @@ function Pagination({ page, totalPages, urlParamName }: PaginationProps) {
         size="lg"
         className="w-10 mt-2 text-lg"
         disabled={Number(page) >= totalPages}
+        onClick={() => handleClick("next")}
       >
         {"❯"}
       </Button>
