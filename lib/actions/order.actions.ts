@@ -11,6 +11,8 @@ import { insertOrderSchema } from "../validators";
 
 import { convertToPlainObject } from "../utils";
 
+import { PAGE_SIZE } from "../constants";
+
 import { type CartItem } from "@/types";
 
 export async function createOrder() {
@@ -124,4 +126,31 @@ export async function getOrderById(orderId: string) {
   });
 
   return convertToPlainObject(data);
+}
+
+export async function getMyOrders({
+  limit = PAGE_SIZE,
+  page,
+}: {
+  limit: number;
+  page: number;
+}) {
+  const session = await auth();
+  if (!session) throw new Error("User is not authorized");
+
+  const userId = session.user?.id;
+  if (!userId) throw new Error("User is not found");
+
+  const data = await prisma.order.findMany({
+    where: { userId: userId },
+    orderBy: { createdAt: "desc" },
+    take: limit,
+    skip: (page - 1) * limit,
+  });
+
+  const dataCount = await prisma.order.count({
+    where: { userId: userId },
+  });
+
+  return { data, totalPages: Math.ceil(dataCount / limit) };
 }
