@@ -106,3 +106,9 @@ export const insertOrderItemSchema = z.object({
   price: z.string(),
   qty: z.number(),
 });
+
+// validation update user profile
+export const updateProfileSchema = z.object({
+  name: z.string(),
+  email: z.string(),
+});
