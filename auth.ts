@@ -110,8 +110,15 @@ export const config = {
     //
     async jwt({ session, user, trigger, token }: any) {
       if (user) {
+        token.sub = user.id;
         token.role = user.role;
       }
+
+      // update user profile (name)
+      if (session?.user.name && trigger === "update") {
+        token.name = session.user.name;
+      }
+
       return token;
     },
 
