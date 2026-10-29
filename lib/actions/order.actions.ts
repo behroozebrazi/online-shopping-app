@@ -154,3 +154,51 @@ export async function getMyOrders({
 
   return { data, totalPages: Math.ceil(dataCount / limit) };
 }
+
+// Admin action
+type SalesDataType = { month: string; totalSales: number };
+export async function getOrderSummery() {
+  const ordersCount = await prisma.order.count();
+  const productsCount = await prisma.product.count();
+  const usersCount = await prisma.user.count();
+  const totalSales = await prisma.order.aggregate({
+    _sum: { totalPrice: true },
+  });
+  // orders list
+  const orders = await prisma.order.findMany({
+    select: { createdAt: true, totalPrice: true },
+    orderBy: { createdAt: "asc" },
+  });
+
+  // months sales
+  const monthlyData = new Map<string, number>();
+  orders.forEach((order) => {
+    const date = new Date(order.createdAt);
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const year = String(date.getFullYear()).slice(-2);
+    const monthKey = `${month}/${year}`;
+    const currentTotal = monthlyData.get(monthKey) || 0;
+    monthlyData.set(monthKey, currentTotal + order.totalPrice);
+  });
+
+  // convert Map to Array
+  const salesData: SalesDataType[] = Array.from(monthlyData.entries()).map(
+    ([month, totalSales]) => ({ month, totalSales }),
+  );
+
+  // last 6 sales
+  const latestSales = await prisma.order.findMany({
+    include: { user: { select: { name: true } } },
+    orderBy: { createdAt: "desc" },
+    take: 6,
+  });
+
+  return {
+    ordersCount,
+    productsCount,
+    usersCount,
+    totalSales,
+    salesData,
+    latestSales,
+  };
+}
