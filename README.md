@@ -36,6 +36,10 @@ npx shadcn@latest init
   npx shadcn@latest add radio-group
 - https://ui.shadcn.com/docs/components/base/badge
   npx shadcn@latest add badge
+- https://ui.shadcn.com/docs/components/base/alert-dialog
+  npx shadcn@latest add alert-dialog
+- https://ui.shadcn.com/docs/components/base/dialog
+  npx shadcn@latest add dialog
 
 // Icons ==>>
 https://lucide.dev/

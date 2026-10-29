@@ -12,10 +12,12 @@ import {
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 
-import { getAllOrders } from "@/lib/actions/order.actions";
+import { deleteOrder, getAllOrders } from "@/lib/actions/order.actions";
 import { requireAdmin } from "@/lib/auth-gaurd";
 
 import Pagination from "@/components/shared/pagination";
+
+import DeleteDialog from "@/components/shared/deleteDialog";
 
 import { formatId, formatDate } from "@/lib/utils";
 
@@ -63,18 +65,23 @@ async function AdminOrdersContent({
                   <TableCell className="text-left">
                     {formatId(order.id)}
                   </TableCell>
+
                   <TableCell className="text-center">
                     {formatDate(order.createdAt)}
                   </TableCell>
+
                   <TableCell className="text-center">
                     $ {order.totalPrice}
                   </TableCell>
+
                   <TableCell className="text-center">
                     {order.isPaid ? "Paid" : "Unpaid"}
                   </TableCell>
+
                   <TableCell className="text-center">
                     {order.isDelivered ? "Delivered" : "Not delivered"}
                   </TableCell>
+
                   <TableCell className="text-right">
                     <Button
                       variant="outline"
@@ -84,6 +91,8 @@ async function AdminOrdersContent({
                     >
                       Details
                     </Button>
+
+                    <DeleteDialog id={order.id} action={deleteOrder} />
                   </TableCell>
                 </TableRow>
               ))}
