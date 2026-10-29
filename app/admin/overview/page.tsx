@@ -18,6 +18,8 @@ import { requireAdmin } from "@/lib/auth-gaurd";
 
 import { getOrderSummery } from "@/lib/actions/order.actions";
 
+import Charts from "./charts";
+
 import { formatDate } from "@/lib/utils";
 
 function AdminOverviewPage() {
@@ -121,7 +123,9 @@ async function OverviewContent() {
           <CardHeader>
             <CardTitle>Reports</CardTitle>
           </CardHeader>
-          <CardContent>Chart</CardContent>
+          <CardContent>
+            <Charts data={{ salesData: summery.salesData }} />
+          </CardContent>
         </Card>
 
         <Card className="col-span-3">
