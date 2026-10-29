@@ -152,3 +152,6 @@ npm install zarinpal-checkout @types/zarinpal-checkout
 
 // Extract and Manipulate url
 npm install query-string
+
+// Chart
+npm install recharts
