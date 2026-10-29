@@ -40,7 +40,68 @@ async function AdminOrdersContent({
 
   const orders = await getAllOrders({ page: Number(page), limit: 10 });
 
-  return <div></div>;
+  return (
+    <>
+      <div className="space-y-2">
+        <h2 className="font-bold">Ordes</h2>
+        <div className="overflow-x-auto">
+          <Table className="w-full text-right">
+            <TableHeader>
+              <TableRow>
+                <TableHead className="text-left">Order Number</TableHead>
+                <TableHead className="text-center">Date</TableHead>
+                <TableHead className="text-center">Total</TableHead>
+                <TableHead className="text-center">Payment</TableHead>
+                <TableHead className="text-center">Delivery</TableHead>
+                <TableHead className="text-right pr-4">Details</TableHead>
+              </TableRow>
+            </TableHeader>
+
+            <TableBody>
+              {orders.data.map((order) => (
+                <TableRow key={order.id} className="align-top">
+                  <TableCell className="text-left">
+                    {formatId(order.id)}
+                  </TableCell>
+                  <TableCell className="text-center">
+                    {formatDate(order.createdAt)}
+                  </TableCell>
+                  <TableCell className="text-center">
+                    $ {order.totalPrice}
+                  </TableCell>
+                  <TableCell className="text-center">
+                    {order.isPaid ? "Paid" : "Unpaid"}
+                  </TableCell>
+                  <TableCell className="text-center">
+                    {order.isDelivered ? "Delivered" : "Not delivered"}
+                  </TableCell>
+                  <TableCell className="text-right">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      nativeButton={false}
+                      render={<Link href={`/order/${order.id}`} />}
+                    >
+                      Details
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+
+          {/* Pagination */}
+          {orders.totalPages > 1 && (
+            <Pagination
+              page={Number(page) || 1}
+              totalPages={orders.totalPages}
+              urlParamName=""
+            />
+          )}
+        </div>
+      </div>
+    </>
+  );
 }
 
 export default AdminOrdersPage;
