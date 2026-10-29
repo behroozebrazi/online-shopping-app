@@ -9,7 +9,7 @@ import { getUserById } from "./user.actions";
 
 import { insertOrderSchema } from "../validators";
 
-import { convertToPlainObject } from "../utils";
+import { convertToPlainObject, formatDate } from "../utils";
 
 import { PAGE_SIZE } from "../constants";
 
@@ -201,4 +201,23 @@ export async function getOrderSummery() {
     salesData,
     latestSales,
   };
+}
+
+export async function getAllOrders({
+  limit = PAGE_SIZE,
+  page,
+}: {
+  limit?: number;
+  page: number;
+}) {
+  const data = await prisma.order.findMany({
+    include: { user: { select: { name: true } } },
+    take: limit,
+    skip: (page - 1) * limit,
+    orderBy: { createdAt: "desc" },
+  });
+
+  const dataCount = await prisma.order.count();
+
+  return { data, totalPages: Math.ceil(dataCount / limit) };
 }
