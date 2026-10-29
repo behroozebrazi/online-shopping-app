@@ -1,5 +1,7 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
+
 import { auth } from "@/auth";
 
 import { prisma } from "../prisma";
@@ -220,4 +222,16 @@ export async function getAllOrders({
   const dataCount = await prisma.order.count();
 
   return { data, totalPages: Math.ceil(dataCount / limit) };
+}
+
+export async function deleteOrder(id: string) {
+  try {
+    await prisma.order.delete({ where: { id: id } });
+
+    revalidatePath("/admin/orders");
+
+    return { success: true, message: "Order was deleted." };
+  } catch (error) {
+    return { success: false, message: error };
+  }
 }
