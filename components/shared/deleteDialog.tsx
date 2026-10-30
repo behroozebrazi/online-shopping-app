@@ -25,7 +25,9 @@ function DeleteDialog({
 }) {
   const [open, setOpen] = useState(false);
 
-  function handleDeleteClick() {}
+  function handleDeleteClick() {
+    const response = action(id);
+  }
 
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>

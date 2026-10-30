@@ -18,12 +18,22 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
 import { requestZarinpalPayment } from "@/lib/actions/payment.actions";
+import {
+  updateOrderToPaidCOD,
+  updateOrderToDelivered,
+} from "@/lib/actions/order.actions";
 
 import { formatId, formatDate } from "@/lib/utils";
 
 import { type Order } from "@/types";
 
-function OrderDetailsTable({ order }: { order: Order }) {
+function OrderDetailsTable({
+  order,
+  isAdmin,
+}: {
+  order: Order;
+  isAdmin: boolean;
+}) {
   const {
     id,
     shippingAddress,
@@ -154,14 +164,46 @@ function OrderDetailsTable({ order }: { order: Order }) {
 
               {!isPaid && (
                 <Button onClick={handlePayment} className="w-full">
-                  Continue
+                  Pay
                 </Button>
+              )}
+
+              {isAdmin && !isPaid && paymentMethod === "Cash On Delivery" && (
+                <MarkAsPaidButton orderId={order.id} />
+              )}
+
+              {isAdmin && !isDelivered && (
+                <MarkAsDeliveredButton orderId={order.id} />
               )}
             </CardContent>
           </Card>
         </div>
       </div>
     </>
+  );
+}
+
+function MarkAsPaidButton({ orderId }: { orderId: string }) {
+  return (
+    <Button
+      className="m-2"
+      type="button"
+      onClick={async () => await updateOrderToPaidCOD(orderId)}
+    >
+      Paid
+    </Button>
+  );
+}
+
+function MarkAsDeliveredButton({ orderId }: { orderId: string }) {
+  return (
+    <Button
+      className="m-2"
+      type="button"
+      onClick={async () => await updateOrderToDelivered(orderId)}
+    >
+      Delivered
+    </Button>
   );
 }
 
