@@ -2,9 +2,13 @@
 
 import { revalidatePath } from "next/cache";
 
+import { number, z } from "zod";
+
 import { prisma } from "../../lib/prisma";
 
 import { convertToPlainObject } from "../utils";
+
+import { insertProductSchema } from "../validators";
 
 export async function getLatestProducts() {
   const data = await prisma.product.findMany({
@@ -49,6 +53,25 @@ export async function deleteProduct(id: string) {
     revalidatePath("/admin/products");
 
     return { success: true, message: "Product was deleted." };
+  } catch (error) {
+    return { success: false, message: error };
+  }
+}
+
+export async function createProduct(data: z.infer<typeof insertProductSchema>) {
+  try {
+    const product = insertProductSchema.parse(data);
+
+    await prisma.product.create({
+      data: {
+        ...product,
+        price: Number(product.price),
+      },
+    });
+
+    revalidatePath("/admin/products");
+
+    return { success: true, message: "Product was created." };
   } catch (error) {
     return { success: false, message: error };
   }
