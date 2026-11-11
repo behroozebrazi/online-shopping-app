@@ -15,7 +15,7 @@ import {
 import Pagination from "@/components/shared/pagination";
 import DeleteDialog from "@/components/shared/deleteDialog";
 
-import { getAllProducts } from "@/lib/actions/product.actions";
+import { getAllProducts, deleteProduct } from "@/lib/actions/product.actions";
 
 import { requireAdmin } from "@/lib/auth-gaurd";
 
@@ -50,9 +50,10 @@ async function AdminProductContent(props: { searchParams: SearchParams }) {
       <TableCell className="text-left">{product.category}</TableCell>
       <TableCell className="text-left">{product.stock}</TableCell>
       <TableCell className="text-right">
-        <Button variant="destructive" size="sm">
+        <DeleteDialog id={product.id} action={deleteProduct} />
+        {/* <Button variant="destructive" size="sm" >
           Delete
-        </Button>
+        </Button> */}
       </TableCell>
     </TableRow>
   ));
