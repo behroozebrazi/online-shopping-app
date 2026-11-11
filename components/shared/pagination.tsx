@@ -9,7 +9,7 @@ import { Button } from "../ui/button";
 type PaginationProps = {
   page: number | string;
   totalPages: number;
-  urlParamName: string;
+  urlParamName?: string;
 };
 
 function Pagination({ page, totalPages, urlParamName }: PaginationProps) {
