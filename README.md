@@ -40,6 +40,10 @@ npx shadcn@latest init
   npx shadcn@latest add alert-dialog
 - https://ui.shadcn.com/docs/components/base/dialog
   npx shadcn@latest add dialog
+- https://ui.shadcn.com/docs/components/base/textarea
+  npx shadcn@latest add textarea
+- https://ui.shadcn.com/docs/components/base/checkbox
+  npx shadcn@latest add checkbox
 
 // Icons ==>>
 https://lucide.dev/
@@ -159,3 +163,7 @@ npm install query-string
 
 // Chart
 npm install recharts
+
+// Turns strings like product names or titles into URL-friendly slugs
+https://www.npmjs.com/package/slugify
+npm install slugify
