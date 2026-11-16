@@ -23,7 +23,7 @@ import { insertProductSchema } from "@/lib/validators";
 
 import { createProduct } from "@/lib/actions/product.actions";
 
-function ProductForm({ productId }: { productId: string }) {
+function ProductForm() {
   const router = useRouter();
 
   const form = useForm<
@@ -45,23 +45,23 @@ function ProductForm({ productId }: { productId: string }) {
   });
 
   //
-  async function handleImageChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const file = e.target.files?.[0];
+  async function handleImageChange(event: React.ChangeEvent<HTMLInputElement>) {
+    const file = event.target.files?.[0];
     if (!file) return;
     const localUrl = URL.createObjectURL(file);
-    form.setValue("image", localUrl);
+    form.setValue("image", localUrl as unknown as string);
     const data = new FormData();
     data.append("file", file);
-    const res = await fetch("/api/upload", {
+    const response = await fetch("/api/upload", {
       method: "POST",
       body: data,
     });
-    if (!res.ok) {
+    if (!response.ok) {
       form.setValue("image", "");
       alert("Upload image error!");
       return;
     }
-    const json = (await res.json()) as { url: string };
+    const json = (await response.json()) as { url: string };
     form.setValue("image", json.url);
   }
 
