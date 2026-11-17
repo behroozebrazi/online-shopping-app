@@ -157,3 +157,20 @@ export async function updateProfile(user: { name: string; email: string }) {
     return { success: false, message: error };
   }
 }
+
+// Get all users information
+export async function getAllUsers({
+  limit = 2,
+  page,
+}: {
+  limit?: number;
+  page: number;
+}) {
+  const dataCount = await prisma.user.count();
+  const data = await prisma.user.findMany({
+    orderBy: { createdAt: "desc" },
+    take: limit,
+    skip: (page - 1) * limit,
+  });
+  return { data, totalPages: Math.ceil(dataCount / limit) };
+}
