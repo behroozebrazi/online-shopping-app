@@ -37,7 +37,55 @@ async function AdminUserContent(props: { searchParams: SearchParams }) {
   const { page = "1" } = await props.searchParams;
   const users = await getAllUsers({ page: Number(page) });
 
-  return <div>Admin Users Page</div>;
+  const showUsers = users.data.map((user) => (
+    <TableRow key={user.id}>
+      <TableCell className="text-left">{formatId(user.id)}</TableCell>
+      <TableCell className="text-left">{user.name}</TableCell>
+      <TableCell className="text-left">{user.email}</TableCell>
+      <TableCell className="text-left">
+        {user.role === "user" ? (
+          <Badge variant="secondary">User</Badge>
+        ) : (
+          <Badge variant="default">Admin</Badge>
+        )}
+      </TableCell>
+      <TableCell className="text-right">
+        <Link href={`/admin/users/${user.id}`}>
+          <Button variant="outline" size="sm">
+            Edit
+          </Button>
+        </Link>
+      </TableCell>
+    </TableRow>
+  ));
+
+  return (
+    <div className="space-y-2">
+      <div className="flex items-center gap-3">
+        <h1 className="font-bold text-3xl lg:text-4xl">Users</h1>
+      </div>
+
+      <div className="overflow-x-auto">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead className="text-left">Id</TableHead>
+              <TableHead className="text-left">Name</TableHead>
+              <TableHead className="text-left">Email</TableHead>
+              <TableHead className="text-left">Role</TableHead>
+              <TableHead className="text-right">Actions</TableHead>
+            </TableRow>
+          </TableHeader>
+
+          <TableBody>{showUsers}</TableBody>
+        </Table>
+
+        {users.totalPages > 1 && (
+          <Pagination page={Number(page) || 1} totalPages={users?.totalPages} />
+        )}
+      </div>
+    </div>
+  );
 }
 
 export default AdminUserPage;
