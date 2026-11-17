@@ -1,6 +1,8 @@
 "use server";
 
 import { isRedirectError } from "next/dist/client/components/redirect-error";
+import { revalidatePath } from "next/cache";
+
 import { hashSync } from "bcryptjs";
 
 import { z } from "zod";
@@ -173,4 +175,15 @@ export async function getAllUsers({
     skip: (page - 1) * limit,
   });
   return { data, totalPages: Math.ceil(dataCount / limit) };
+}
+
+// Delete an user
+export async function deleteUser(id: string) {
+  try {
+    await prisma.user.delete({ where: { id: id } });
+    revalidatePath("/admin/users");
+    return { success: true, message: "The user was deleted." };
+  } catch (error) {
+    return { success: false, message: String(error) };
+  }
 }

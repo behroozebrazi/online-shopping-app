@@ -13,7 +13,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
-import { getAllUsers } from "@/lib/actions/user.actions";
+import { getAllUsers, deleteUser } from "@/lib/actions/user.actions";
 
 import { requireAdmin } from "@/lib/auth-gaurd";
 
@@ -42,6 +42,7 @@ async function AdminUserContent(props: { searchParams: SearchParams }) {
       <TableCell className="text-left">{formatId(user.id)}</TableCell>
       <TableCell className="text-left">{user.name}</TableCell>
       <TableCell className="text-left">{user.email}</TableCell>
+
       <TableCell className="text-left">
         {user.role === "user" ? (
           <Badge variant="secondary">User</Badge>
@@ -49,12 +50,15 @@ async function AdminUserContent(props: { searchParams: SearchParams }) {
           <Badge variant="default">Admin</Badge>
         )}
       </TableCell>
-      <TableCell className="text-right">
+
+      <TableCell className="text-center">
         <Link href={`/admin/users/${user.id}`}>
           <Button variant="outline" size="sm">
             Edit
           </Button>
         </Link>
+
+        <DeleteDialog id={user.id} action={deleteUser} />
       </TableCell>
     </TableRow>
   ));
@@ -73,7 +77,7 @@ async function AdminUserContent(props: { searchParams: SearchParams }) {
               <TableHead className="text-left">Name</TableHead>
               <TableHead className="text-left">Email</TableHead>
               <TableHead className="text-left">Role</TableHead>
-              <TableHead className="text-right">Actions</TableHead>
+              <TableHead className="text-center">Actions</TableHead>
             </TableRow>
           </TableHeader>
 
