@@ -18,19 +18,14 @@ async function Category() {
   return (
     <div className="flex items-center gap-2">
       <DropdownMenu>
-        <DropdownMenuTrigger>
-          <div className="flex items-center">
-            <Button
-              variant="outline"
-              className="flex items-center justify-center relative rounded-md ml-2"
-            >
-              <MenuIcon />
-              <span>Categories</span>
-            </Button>
-          </div>
+        <DropdownMenuTrigger
+          render={<Button variant="outline" className="ml-2 rounded-md" />}
+        >
+          <MenuIcon />
+          <span>Categories</span>
         </DropdownMenuTrigger>
 
-        <DropdownMenuContent className="w-36" align="end">
+        <DropdownMenuContent className="w-36 m-2" align="end">
           <>
             {categories.map((item) => (
               <DropdownMenuItem

@@ -44,6 +44,8 @@ npx shadcn@latest init
   npx shadcn@latest add textarea
 - https://ui.shadcn.com/docs/components/base/checkbox
   npx shadcn@latest add checkbox
+- https://ui.shadcn.com/docs/components/base/select
+  npx shadcn@latest add select
 
 // Icons ==>>
 https://lucide.dev/
