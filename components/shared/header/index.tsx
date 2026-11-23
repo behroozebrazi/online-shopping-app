@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import ThemeToggle from "./themeToggle";
 
 import UserButton from "./userButton";
+import Search from "./search";
 
 function Header() {
   return (
@@ -22,6 +23,10 @@ function Header() {
             </span>
             <span className="block font-bold text-2xl mr-3">Store</span>
           </Link>
+        </div>
+
+        <div className="block">
+          <Search />
         </div>
 
         <div className="space-x-2">
