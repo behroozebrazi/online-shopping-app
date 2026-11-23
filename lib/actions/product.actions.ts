@@ -76,3 +76,12 @@ export async function createProduct(data: z.infer<typeof insertProductSchema>) {
     return { success: false, message: error };
   }
 }
+
+export async function getAllCategories() {
+  const data = await prisma.product.groupBy({
+    by: ["category"],
+    _count: true,
+  });
+
+  return data;
+}
