@@ -40,7 +40,7 @@ export async function getAllProducts({
   sort?: string;
 }) {
   const findOptions: any = {
-    orderBy: { createAt: "desc" },
+    orderBy: { createdAt: "desc" },
   };
 
   if (typeof limit === "number") {
@@ -48,18 +48,19 @@ export async function getAllProducts({
       (findOptions.skip = (Number(page) - 1) * limit));
   }
 
-  const data = await prisma.product.findMany(findOptions);
   //   const data = await prisma.product.findMany({
   //   skip: (page - 1) * limit,
   //   take: limit,
   // });
+  const data = await prisma.product.findMany(findOptions);
 
   const dataCount = await prisma.product.count();
+
+  // return { data, totalPages: Math.ceil(dataCount / limit) };
   return {
     data,
     totalPages: typeof limit === "number" ? Math.ceil(dataCount / limit) : 1,
   };
-  // return { data, totalPages: Math.ceil(dataCount / limit) };
 }
 
 export async function deleteProduct(id: string) {
