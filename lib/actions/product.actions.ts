@@ -39,24 +39,51 @@ export async function getAllProducts({
   price?: string;
   sort?: string;
 }) {
-  const findOptions: any = {
-    orderBy: { createdAt: "desc" },
-  };
+  const queryFilter =
+    query && query !== "all" ? { name: { contains: query } } : {};
 
-  if (typeof limit === "number") {
-    ((findOptions.take = limit),
-      (findOptions.skip = (Number(page) - 1) * limit));
-  }
+  const categoryFilter = category && category !== "all" ? { category } : {};
+
+  const priceFilter =
+    price && price !== "all"
+      ? {
+          price: {
+            gte: Number(price.split("-")[0]),
+            lte: Number(price.split("-")[1]),
+          },
+        }
+      : {};
+
+  const data = await prisma.product.findMany({
+    where: {
+      ...queryFilter,
+      ...categoryFilter,
+      ...priceFilter,
+    },
+    orderBy: { createdAt: "desc" },
+    skip: (page - 1) * 12,
+    take: 12,
+  });
+
+  const dataCount = await prisma.product.count({
+    where: {
+      ...queryFilter,
+      ...categoryFilter,
+      ...priceFilter,
+    },
+  });
+
+  const where = {
+    ...(query ? { name: { contains: query } } : {}),
+    ...(category ? { category } : {}),
+  };
 
   //   const data = await prisma.product.findMany({
   //   skip: (page - 1) * limit,
   //   take: limit,
   // });
-  const data = await prisma.product.findMany(findOptions);
-
-  const dataCount = await prisma.product.count();
-
   // return { data, totalPages: Math.ceil(dataCount / limit) };
+
   return {
     data,
     totalPages: typeof limit === "number" ? Math.ceil(dataCount / limit) : 1,
