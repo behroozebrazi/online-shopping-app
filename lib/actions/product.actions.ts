@@ -60,7 +60,12 @@ export async function getAllProducts({
       ...categoryFilter,
       ...priceFilter,
     },
-    orderBy: { createdAt: "desc" },
+    orderBy:
+      sort === "lowest"
+        ? { price: "asc" }
+        : sort === "highest"
+          ? { price: "desc" }
+          : { createdAt: "desc" },
     skip: (page - 1) * 12,
     take: 12,
   });

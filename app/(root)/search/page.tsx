@@ -20,6 +20,12 @@ const prices = [
   { name: "above $500", value: "500-" },
 ];
 
+const sortOrders = [
+  { name: "Most recent", value: "newest" },
+  { name: "Lower price", value: "lowest" },
+  { name: "Higher price", value: "highest" },
+];
+
 type SearchParams = Promise<{
   q?: string;
   category?: string;
@@ -91,6 +97,16 @@ async function SearchResults({ searchParams }: { searchParams: SearchParams }) {
     </li>
   ));
 
+  const showSortOrders = sortOrders.map((s) => (
+    <Link
+      key={s.value}
+      href={getFilterUrl({ s: s.value })}
+      className={`${sort === s.value && "font-bold"}`}
+    >
+      {s.name}
+    </Link>
+  ));
+
   return (
     <div className="grid grid-cols-5 gap-2">
       <div>
@@ -128,6 +144,14 @@ async function SearchResults({ searchParams }: { searchParams: SearchParams }) {
       </div>
 
       <div className="col-span-4 space-y-4">
+        {/* Sort */}
+        <div className="flex flex-col items-center justify-between">
+          <div className="flex items-center gap-4">
+            <span>Sort</span>
+            {showSortOrders}
+          </div>
+        </div>
+
         <div className="grid gap-4 grid-cols-3">
           {products.data.length === 0 && <div>Products not found.</div>}
           {products.data.map((item) => (
