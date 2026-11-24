@@ -38,6 +38,27 @@ async function SearchResults({ searchParams }: { searchParams: SearchParams }) {
     page = "1",
   } = await searchParams;
 
+  function getFilterUrl({
+    c,
+    p,
+    s,
+    pg,
+  }: {
+    c?: string;
+    p?: string;
+    s?: string;
+    pg?: string;
+  }) {
+    const params = { q, category, price, sort, page };
+
+    if (c) params.category = c;
+    if (p) params.price = p;
+    if (s) params.sort = s;
+    if (pg) params.page = pg;
+
+    return `/search/${new URLSearchParams(params).toString()}`;
+  }
+
   const [products, categories] = await Promise.all([
     getAllProducts({ query: q, category, price, sort, page: Number(page) }),
     getAllCategories(),
